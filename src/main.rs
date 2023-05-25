@@ -7,6 +7,7 @@ use tokio::time::sleep;
 
 #[tokio::main]
 async fn main() {
+    println!("Made by steele#7375, the code is available @ github.com/steele123/afk");
     println!("Go afk I'll do the rest :)");
     println!("Trying to connect to League Client...");
 
