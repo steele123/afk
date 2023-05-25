@@ -61,7 +61,7 @@ async fn main() {
                 println!("Ready check found, accepting...");
 
                 client
-                    .post("/lol-matchmaking/v1/ready-check/accept".to_string(), "{}")
+                    .post("/lol-matchmaking/v1/ready-check/accept".to_string(), "")
                     .await
                     .unwrap();
 
