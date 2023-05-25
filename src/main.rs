@@ -1,3 +1,5 @@
+mod config;
+
 use std::time::Duration;
 use futures_util::StreamExt;
 use shaco::model::ws::LcuSubscriptionType::JsonApiEvent;
@@ -49,7 +51,7 @@ async fn main() {
             .unwrap();
 
         while let Some(msg) = ws.next().await {
-            if msg.subscription_type.to_string() == "/lol-gameflow/v1/gameflow-phase" {
+            if msg.subscription_type.to_string() == "OnJsonApiEvent_lol-gameflow_v1_gameflow-phase" {
                 let state = msg.data.as_str().unwrap();
                 println!("Gameflow State: {}", state);
                 if state != "ReadyCheck" {
@@ -62,6 +64,7 @@ async fn main() {
                     .post("/lol-matchmaking/v1/ready-check/accept".to_string(), "{}")
                     .await
                     .unwrap();
+
                 return;
             }
 
