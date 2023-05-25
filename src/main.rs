@@ -52,11 +52,12 @@ async fn main() {
             if msg.subscription_type.to_string() == "/lol-gameflow/v1/gameflow-phase" {
                 let state = msg.data.as_str().unwrap();
                 println!("Gameflow State: {}", state);
-                if state != "ChampSelect" {
+                if state != "ReadyCheck" {
                     continue;
                 }
 
-                println!("Champ select started");
+                println!("Ready check found, accepting...");
+
                 client
                     .post("/lol-matchmaking/v1/ready-check/accept".to_string(), "{}")
                     .await
