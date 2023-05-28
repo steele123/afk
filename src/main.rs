@@ -46,7 +46,8 @@ async fn main() {
             .await
             .unwrap();
 
-        ws.subscribe(JsonApiEvent("/lol-champ-select/v1/session".to_string()))
+        ws
+            .subscribe(JsonApiEvent("/lol-champ-select/v1/ongoing-swap".to_string()))
             .await
             .unwrap();
 
@@ -60,15 +61,27 @@ async fn main() {
 
                 println!("Ready check found, accepting...");
 
-                client
+                // Delay 1 second to make sure the ready check is fully loaded
+                sleep(Duration::from_secs(1)).await;
+
+                let _ = client
                     .post("/lol-matchmaking/v1/ready-check/accept".to_string(), "")
-                    .await
-                    .unwrap();
+                    .await;
 
                 return;
             }
 
+            /*
+            if msg.subscription_type.to_string() == "OnJsonApiEvent_lol-champ-select_v1_ongoing-swap" {
+                if msg.data.as_object().unwrap().get("state").unwrap().as_str().unwrap() != "RECEIVED" {
+                    continue;
+                }
 
+                println!("Ongoing swap found, accepting...");
+
+
+                return;
+            }*/
         }
     }
 }
