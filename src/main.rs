@@ -64,11 +64,17 @@ async fn main() {
                 // Delay 1 second to make sure the ready check is fully loaded
                 sleep(Duration::from_secs(1)).await;
 
+                /* This throws an error if the ready check is already accepted we need to handle that
+                let _ = client
+                    .post("/lol-matchmaking/v1/ready-check/accept".to_string(), "")
+                    .await;
+                 */
+
                 let _ = client
                     .post("/lol-matchmaking/v1/ready-check/accept".to_string(), "")
                     .await;
 
-                return;
+                continue;
             }
 
             /*
